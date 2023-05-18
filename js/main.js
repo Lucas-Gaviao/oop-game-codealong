@@ -1,10 +1,11 @@
 class Player{
 
     constructor(){
-        this.positionX = 50;
-        this.positionY = 0;
         this.width = 10;
         this.height = 10;
+        this.positionX = 50 - this.width/2;
+        this.positionY = 0;
+
 
         this.domElement = null; //store a ref. to the dom element of the player.
 
@@ -49,10 +50,11 @@ class Player{
 
 class Obstacle {
     constructor(){
-        this.positionX = 50;
-        this.positionY = 100;
         this.width = 20;
         this.height = 10;
+        this.positionX = 50 - this.width/2;
+        this.positionY = 100;
+
 
         this.domElement = null;
 
@@ -113,7 +115,7 @@ const intervalId = setInterval(() => {  //looping through the array and calling 
     })    
 }, 60);
 
-clearInterval(intervalId);
+//clearInterval(intervalId);
 
 
 
