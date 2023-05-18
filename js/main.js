@@ -100,7 +100,7 @@ setInterval(()=>{       //Creating new obstacles every 3sec and storing them in 
 
 
 
-const intervalId = setInterval(() => {  //looping through the array and calling the .moveDown() for each element.
+const intervalId = setInterval(() => {  //looping through the array and calling the .moveDown() for each element and detect collision;
     obstacleArray.forEach((obstacleInstance) =>{
         obstacleInstance.moveDown();
 
@@ -108,7 +108,7 @@ const intervalId = setInterval(() => {  //looping through the array and calling 
             obstacleInstance.positionX + obstacleInstance.width > player.positionX &&
             obstacleInstance.positionY < player.positionY + player.height &&
             obstacleInstance.height + obstacleInstance.positionY > player.positionY) {
-            console.log("game over my fren");
+            console.log("game over my fren"); ///// Code to detect collision //////////////
         }
     })    
 }, 60);
