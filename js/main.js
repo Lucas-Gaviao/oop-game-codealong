@@ -115,7 +115,7 @@ const intervalId = setInterval(() => {  //looping through the array and calling 
     })    
 }, 60);
 
-//clearInterval(intervalId);
+clearInterval(intervalId);
 
 
 
