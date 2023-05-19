@@ -36,6 +36,10 @@ class Game {
             this.player.moveLeft();
         } else if(event.code === "ArrowRight"){
             this.player.moveRight();
+        } else if(event.code === "ArrowUp"){
+            this.player.moveUp();
+        } else if(event.code === "ArrowDown"){
+            this.player.moveDown();
         }
     })
     
@@ -103,19 +107,29 @@ class Player{
         if(this.positionX >= 0){ //added the if to stop the player from going outside by using 0 as a stop.
         this.domElement.style.left = this.positionX + "vw"; //this.domElement is now connected to the last line of createDomElement();
         }// or this.positionx -= 1 || this.position--;
-        console.log(`this is the new position ${this.positionX}`)
+        //console.log(`this is the new position ${this.positionX}`)
     }
     moveRight(){
             this.positionX += 2;
             this.domElement.style.left = this.positionX + "vw";
      };
+
+    moveUp(){
+        this.positionY += 2;
+        this.domElement.style.bottom = this.positionY + "vh";
+    }
+    moveDown(){
+        this.positionY -=2;
+        this.domElement.style.bottom = this.positionY + "vh";
+        
+    }
 }
 
 class Obstacle {
     constructor(){
         this.width = 20;
         this.height = 10;
-        this.positionX = 50 - this.width/2;
+        this.positionX = Math.floor(Math.random() * (100 - this.width));
         this.positionY = 100;
 
 
