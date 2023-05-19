@@ -2,7 +2,7 @@ class Player{
 
     constructor(){
         this.width = 10;
-        this.height = 10;
+        this.height = 5;
         this.positionX = 50 - this.width/2;
         this.positionY = 0;
 
@@ -42,10 +42,9 @@ class Player{
         console.log(`this is the new position ${this.positionX}`)
     }
     moveRight(){
-        this.positionX += 2;
-        this.domElement.style.left = this.positionX + "vw";
-       
-     }
+            this.positionX += 2;
+            this.domElement.style.left = this.positionX + "vw";
+     };
 }
 
 class Obstacle {
@@ -104,15 +103,25 @@ setInterval(()=>{       //Creating new obstacles every 3sec and storing them in 
 
 const intervalId = setInterval(() => {  //looping through the array and calling the .moveDown() for each element and detect collision;
     obstacleArray.forEach((obstacleInstance) =>{
+       
         obstacleInstance.moveDown();
 
         if (obstacleInstance.positionX < player.positionX + player.width &&
             obstacleInstance.positionX + obstacleInstance.width > player.positionX &&
             obstacleInstance.positionY < player.positionY + player.height &&
             obstacleInstance.height + obstacleInstance.positionY > player.positionY) {
-            console.log("game over my fren"); ///// Code to detect collision //////////////
+                location.href = "/GameOver.html";
+                console.log("game over my fren"); ///// Code to detect collision //////////////
         }
-    })    
+
+        //Detect if object needs to be deleted;
+        if(obstacleInstance.positionY < 0 - obstacleInstance.height){
+            //remove the element from the DOM
+            obstacleInstance.domElement.remove()
+            //remove element from the array
+            obstacleArray.shift();
+        }
+    });    
 }, 60);
 
 clearInterval(intervalId);
