@@ -15,6 +15,6 @@ body {
 }
 
 .obstacle {
-    background-color: black;
+    background-color: rgb(246, 246, 0);
     position: absolute;
 }

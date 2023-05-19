@@ -1,3 +1,67 @@
+
+class Game {
+    constructor(){
+        this.player = null;
+        this.obstacleArray = []; //here, we will store instances of the class obstacle!!
+    }
+
+    start(){
+        this.player = new Player(); 
+
+        this.attachEventListeners();
+        // Create new obstacle;
+        setInterval(() => {       //Creating new obstacles every 3sec and storing them in the obstacleArray.
+            const newObstacle = new Obstacle();
+            this.obstacleArray.push(newObstacle);
+        },3000)
+
+        setInterval(() => {  //looping through the array and calling the .moveDown() for each element and detect collision;
+            this.obstacleArray.forEach((obstacleInstance) => {
+               
+                obstacleInstance.moveDown();
+        
+                // Detect Collision
+                this.detectCollision(obstacleInstance);
+                //Delete Object
+                this.deleteObstacle(obstacleInstance);
+                });    
+        }, 60);
+    }
+
+    attachEventListeners() {
+        //attach  addEventListener =>
+     document.addEventListener("keydown", (event) => {
+
+         if(event.code === "ArrowLeft"){
+            this.player.moveLeft();
+        } else if(event.code === "ArrowRight"){
+            this.player.moveRight();
+        }
+    })
+    
+    }
+    detectCollision(obstacleInstance){
+        if (obstacleInstance.positionX < this.player.positionX + this.player.width &&
+            obstacleInstance.positionX + obstacleInstance.width > this.player.positionX &&
+            obstacleInstance.positionY < this.player.positionY + this.player.height &&
+            obstacleInstance.height + obstacleInstance.positionY > this.player.positionY) {
+                location.href = "/GameOver.html";
+                //console.log("game over my fren"); ///// Code to detect collision //////////////  
+    }
+}
+
+    deleteObstacle(obstacleInstance){
+       //Detect if object needs to be deleted;
+       if(obstacleInstance.positionY < 0 - obstacleInstance.height){
+        //remove the element from the DOM
+        obstacleInstance.domElement.remove();
+        //remove element from the array
+        this.obstacleArray.shift(); 
+    }
+}
+
+}
+
 class Player{
 
     constructor(){
@@ -86,59 +150,13 @@ class Obstacle {
     moveDown(){
         this.positionY--; //or this.positionY = this.positionY + 1;
         this.domElement.style.bottom = this.positionY + "vh"
-        console.log(`this is my obstacle position... ${this.positionY}`);
+        //console.log(`this is my obstacle position... ${this.positionY}`);
     }
 
 }
-const player = new Player(); 
-const obstacleArray = []; //here, we will store instances of the class obstacle!!
 
+const game = new Game();
+game.start();
 
-setInterval(()=>{       //Creating new obstacles every 3sec and storing them in the obstacleArray.
-    const newObstacle = new Obstacle();
-    obstacleArray.push(newObstacle);
-},3000)
-
-
-
-const intervalId = setInterval(() => {  //looping through the array and calling the .moveDown() for each element and detect collision;
-    obstacleArray.forEach((obstacleInstance) =>{
-       
-        obstacleInstance.moveDown();
-
-        if (obstacleInstance.positionX < player.positionX + player.width &&
-            obstacleInstance.positionX + obstacleInstance.width > player.positionX &&
-            obstacleInstance.positionY < player.positionY + player.height &&
-            obstacleInstance.height + obstacleInstance.positionY > player.positionY) {
-                location.href = "/GameOver.html";
-                console.log("game over my fren"); ///// Code to detect collision //////////////
-        }
-
-        //Detect if object needs to be deleted;
-        if(obstacleInstance.positionY < 0 - obstacleInstance.height){
-            //remove the element from the DOM
-            obstacleInstance.domElement.remove()
-            //remove element from the array
-            obstacleArray.shift();
-        }
-    });    
-}, 60);
-
-clearInterval(intervalId);
-
-
-
-//attach  addEventListener =>
-
-document.addEventListener("keydown", (event) => {
-console.log('user pressed a key....')
-console.log(event.code)
-
-if(event.code === "ArrowLeft"){
-    player.moveLeft();
-} else if(event.code === "ArrowRight"){
-    player.moveRight();
-}
-})
 
 
