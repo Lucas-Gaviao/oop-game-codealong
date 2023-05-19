@@ -166,7 +166,6 @@ class Obstacle {
         this.domElement.style.bottom = this.positionY + "vh"
         //console.log(`this is my obstacle position... ${this.positionY}`);
     }
-
 }
 
 const game = new Game();
